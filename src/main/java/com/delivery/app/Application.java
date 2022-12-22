@@ -1,4 +1,4 @@
-package com.delivery.homework;
+package com.delivery.app;
 
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;

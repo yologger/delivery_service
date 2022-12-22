@@ -1,5 +1,6 @@
-package com.delivery.homework.repository;
+package com.delivery.app.repository.store;
 
+import com.delivery.app.repository.menu.Menu;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

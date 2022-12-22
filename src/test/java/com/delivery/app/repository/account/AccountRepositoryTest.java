@@ -1,4 +1,4 @@
-package com.delivery.homework.repository;
+package com.delivery.app.repository.account;
 
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -14,11 +14,18 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DisplayName("AccountRepository 테스트")
 class AccountRepositoryTest {
 
-    @Autowired AccountRepository accountRepository;
+    @Autowired
+    AccountRepository accountRepository;
+
+    String dummyAccountId = "dummyId";
+    String dummyPassword = "dummyPassword";
+    String dummyName = "dummyName";
+    Account dummyAccount;
 
     @BeforeEach
     void setUp() {
-
+        Account account = Account.builder().accountId(dummyAccountId).name(dummyName).password(dummyPassword).build();
+        dummyAccount = accountRepository.save(account);
     }
 
     @Test
@@ -29,5 +36,15 @@ class AccountRepositoryTest {
 
         // Then
         assertThat(accountList.size()).isNotZero();
+    }
+
+    @Test
+    @DisplayName("계정 존재 여부 테스트")
+    void existsByAccountId() {
+        // When
+        boolean exists = accountRepository.existsByAccountId(dummyAccountId);
+
+        // Then
+        assertThat(exists).isTrue();
     }
 }

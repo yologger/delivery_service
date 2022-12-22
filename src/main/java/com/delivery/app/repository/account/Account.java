@@ -1,4 +1,4 @@
-package com.delivery.homework.repository;
+package com.delivery.app.repository.account;
 
 
 import lombok.Builder;

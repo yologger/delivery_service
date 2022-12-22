@@ -1,5 +1,7 @@
-package com.delivery.homework.repository;
+package com.delivery.app.repository.menu;
 
+import com.delivery.app.repository.store.Store;
+import com.delivery.app.repository.store.StoreRepository;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

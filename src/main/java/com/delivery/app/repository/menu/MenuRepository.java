@@ -1,4 +1,4 @@
-package com.delivery.homework.repository;
+package com.delivery.app.repository.menu;
 
 import org.springframework.data.jpa.repository.JpaRepository;
 

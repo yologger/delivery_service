@@ -1,5 +1,6 @@
-package com.delivery.homework.repository;
+package com.delivery.app.repository.store;
 
+import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -26,6 +27,11 @@ class StoreRepositoryTest {
     void setUp() {
         Store store = Store.builder().name(dummyStoreName).address(dummyStoreAddress).build();
         dummyStore = storeRepository.save(store);
+    }
+
+    @AfterEach
+    void tearDown() {
+        storeRepository.deleteAll();
     }
 
     @Test
