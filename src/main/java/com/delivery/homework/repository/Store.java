@@ -5,6 +5,7 @@ import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.List;
 
 @Entity
 @Getter
@@ -20,6 +21,9 @@ public class Store {
 
     @Column
     private String address;
+
+    @OneToMany(mappedBy = "store", orphanRemoval = true, cascade = CascadeType.ALL)
+    private List<Menu> menus;
 
     @Builder
     public Store(String name, String address) {
