@@ -18,13 +18,14 @@ class StoreRepositoryTest {
     @Autowired
     StoreRepository storeRepository;
 
-    String dummyStoreName = "노들섬 전복내장탕";
-    String dummyStoreAddress = "서울 용산구 양녕로 445";
+    String dummyStoreName = "제주 흑돼지집";
+    String dummyStoreAddress = "제주특별자치도 서귀포시 성산읍 일출로 267";
     Store dummyStore;
 
     @BeforeEach
     void setUp() {
-        dummyStore = storeRepository.save(Store.builder().name(dummyStoreName).address(dummyStoreAddress).build());
+        Store store = Store.builder().name(dummyStoreName).address(dummyStoreAddress).build();
+        dummyStore = storeRepository.save(store);
     }
 
     @Test

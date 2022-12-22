@@ -1,5 +1,6 @@
 package com.delivery.homework.repository;
 
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
@@ -22,4 +23,19 @@ public class Menu {
 
     @ManyToOne
     private Store store;
+
+    @Builder
+    public Menu(String name, Long price, Store store) {
+        this.name = name;
+        this.price = price;
+        setStore(store);
+    }
+
+    public void setStore(Store store) {
+        if (this.store != null) {
+            this.store.getMenus().remove(this);
+        }
+        this.store = store;
+        store.getMenus().add(this);
+    }
 }
