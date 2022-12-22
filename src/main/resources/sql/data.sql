@@ -34,3 +34,8 @@ VALUES
     ('특선 장어탕', 20000, (SELECT `id` from `store` WHERE name='다왕래 장어구이 논현점')),
     ('장어숙회초무침', 40000, (SELECT `id` from `store` WHERE name='다왕래 장어구이 논현점'))
 ;
+
+INSERT INTO `account` (`account_id`, `password`, `name`)
+VALUES
+    ('yologger1013', '1234', 'yologger')
+;
