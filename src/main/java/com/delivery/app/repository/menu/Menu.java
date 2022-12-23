@@ -1,6 +1,7 @@
 package com.delivery.app.repository.menu;
 
 import com.delivery.app.repository.store.Store;
+import com.delivery.app.service.account.AuthorityType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;

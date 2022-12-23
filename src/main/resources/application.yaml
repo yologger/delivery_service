@@ -28,3 +28,6 @@ spring:
       hibernate:
         show_sql: true
         format_sql: true
+jwt:
+  secret: 'token secret'
+  expire: 86400   # 1 day

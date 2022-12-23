@@ -1,5 +1,6 @@
 package com.delivery.app.controller.account;
 
+import com.delivery.app.security.TokenProvider;
 import com.delivery.app.service.account.AccountAlreadyExistException;
 import com.delivery.app.service.account.AccountService;
 import com.delivery.app.service.account.JoinResult;
@@ -26,17 +27,8 @@ import static org.springframework.test.web.servlet.result.MockMvcResultHandlers.
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
 import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
 
-/*
- * @WebMvcTest는 Custom SecurityConfig가 아니라 Default SecurityConfig(Auto Configuration)를 사용한다.
- * Default SecurityConfig는 기본적으로
- * 1. 쿠키-세션 기반으로 동작하고
- * 2. CSRF Token 발급이 활성화되어있으며
- * 3. 모든 요청에 대해 인증을 요구한다.
- * 따라서 테스트 환경에서 인증된 사용된 사용자로의 요청을 위해 @WithMockUser을 추가하여 401(Unautorized)를 해결하고
- * CSRF Token을 추가하기 위해 with(csrf())를 호출하여 403(Forbidden)을 해결한다.
- * */
-@WebMvcTest
-@DisplayName("AccountController 테스트")
+@WebMvcTest(controllers = AccountController.class)
+@DisplayName("AccountController 입력값 검증 테스트")
 class AccountControllerTest {
 
     @Autowired
@@ -47,6 +39,9 @@ class AccountControllerTest {
 
     @MockBean
     AccountService accountService;
+
+    @MockBean
+    TokenProvider tokenProvider;
 
     @Test
     @DisplayName("중복된 id 테스트")

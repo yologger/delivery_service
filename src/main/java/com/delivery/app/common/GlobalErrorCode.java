@@ -11,7 +11,8 @@ public enum GlobalErrorCode {
     INVALID_METHOD_ARGUMENT(400, "GLOBAL_001", "Invalid method argument"),
     INVALID_JSON_FORMAT(400, "GLOBAL_002", "Invalid json format"),
     UNSUPPORTED_MEDIA_TYPE(400, "GLOBAL_003", "Unsupported media type"),
-    UNSUPPORTED_HTTP_METHOD(400, "GLOBAL_004", "Unsupported http method")
+    UNSUPPORTED_HTTP_METHOD(400, "GLOBAL_004", "Unsupported http method"),
+    UNAUTHORIZED(401, "GLOBAL_005", "Unauthorized")
     ;
 
     private final int status;

@@ -23,7 +23,6 @@ import javax.validation.Valid;
 @RequiredArgsConstructor
 @Api(tags = "계정 API")
 public class AccountController {
-
     final private AccountService accountService;
 
     @ApiOperation(value = "회원 가입", notes = "계정 id, 이름, 비밀번호로 회원 가입하기")

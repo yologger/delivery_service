@@ -1,6 +1,5 @@
 package com.delivery.app.service.account;
 
-
 import com.delivery.app.repository.account.Account;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 
@@ -46,5 +47,16 @@ class AccountRepositoryTest {
 
         // Then
         assertThat(exists).isTrue();
+    }
+
+    @Test
+    @DisplayName("account_id로 계정 조회 테스트")
+    void findByAccountId() {
+        // When
+        Optional<Account> _account = accountRepository.findByAccountId("tester1");
+
+        // Then
+        assertThat(_account.isPresent()).isTrue();
+        assertThat(_account.get().getName()).isEqualTo("tester1");
     }
 }

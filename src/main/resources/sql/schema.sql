@@ -18,10 +18,11 @@ CREATE TABLE `menu`
 
 CREATE TABLE `account`
 (
-    `id`         BIGINT              NOT NULL AUTO_INCREMENT,
-    `account_id` VARCHAR(255) UNIQUE NOT NULL,
-    `password`   VARCHAR(255)        NOT NULL,
+    `id`         BIGINT       NOT NULL AUTO_INCREMENT,
+    `account_id` VARCHAR(255) NOT NULL,
+    `password`   VARCHAR(255) NOT NULL,
     `name`       VARCHAR(255),
+    `authority`  VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`),
     UNIQUE (`account_id`)
 );

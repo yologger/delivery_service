@@ -1,6 +1,7 @@
 package com.delivery.app.repository.account;
 
 
+import com.delivery.app.service.account.AuthorityType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -25,10 +26,18 @@ public class Account {
     @Column
     private String name;
 
+    @Enumerated(EnumType.STRING)
+    private AuthorityType authority;
+
     @Builder
     public Account(String accountId, String password, String name) {
         this.accountId = accountId;
         this.password = password;
         this.name = name;
+        this.authority = AuthorityType.USER;
+    }
+
+    public void setAuthority(AuthorityType authority) {
+        this.authority = authority;
     }
 }

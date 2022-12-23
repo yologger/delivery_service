@@ -35,7 +35,10 @@ VALUES
     ('장어숙회초무침', 40000, (SELECT `id` from `store` WHERE name='다왕래 장어구이 논현점'))
 ;
 
-INSERT INTO `account` (`account_id`, `password`, `name`)
+INSERT INTO `account` (`account_id`, `name`, `authority`, `password`)
 VALUES
-    ('yologger1013', '1234', 'yologger')
+    ('tester1', 'tester1', 'USER', '$2a$10$LTO75nvD2rLM1/KueuH.ROBtZZ9leqyEwqxMziioW3Wbg3ueeWxQ.'),  -- password: aaaAAA111!!!
+    ('tester2', 'tester2', 'USER', '$2a$10$zAcvsCpWHpWkbVp7SUsaUuF450aAbmdw90nSBRlWyMzceJopbym7u'),  -- password: bbbBBB222!!!
+    ('tester3', 'tester3', 'USER', '$2a$10$B4o4Pc7jjgEXSWc5DBA2b.nhykl3NZDwbNdsARKTthMEMyXY79dgS'),  -- password: cccCCC333!!!
+    ('tester4', 'tester4', 'USER', '$2a$10$2NUfCKjvUMXb4UGWtdUojO2w1DrhKsMoqnX7nYbtj9iXQaEwDeHCy')   -- password: dddDDD444!!!
 ;
