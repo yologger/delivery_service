@@ -26,7 +26,7 @@ ER Diagram은 다음과 같습니다.
 - [x] 배달 목적지 수정
 
 ## TDD
-다양한 테스트 코드는 이 곳에서 [이 곳](src/test)에서 확인할 수 있습니다. 
+다양한 테스트 코드는 이 곳에서 [이 곳](src/test/java/com/delivery/app)에서 확인할 수 있습니다. 
 
 테스트 코드는 IDE에서 실행하거나 프로젝트 루트 경로에서 `./gradlew clean test` 명령어로 실행할 수 있습니다.
 
@@ -37,6 +37,8 @@ ER Diagram은 다음과 같습니다.
 `Swagger 2`를 사용하여 문서화를 했습니다. 어플리케이션 실행 후 `http://<HOST>:<PORT>/swagger-ui.html`에서 확인할 수 있습니다.
 
 ![](images/swagger-1.png)
+
+인증 API의 로그인과 관련된 API 문서는 다음과 같습니다.
 
 ![](images/swagger-2.png)
 
