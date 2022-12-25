@@ -19,8 +19,8 @@ public class DeliveryData {
     @JsonProperty("ordered_at")
     private LocalDateTime orderedAt;
 
-    @JsonProperty("customer_address")
-    private String customerAddress;
+    @JsonProperty("destination")
+    private String destination;
 
     @JsonProperty("store_name")
     private String storeName;
@@ -32,10 +32,10 @@ public class DeliveryData {
     private Long totalPrice;
 
     @Builder
-    public DeliveryData(Long deliveryId, LocalDateTime orderedAt, String customerAddress, String storeName, List<MenuData> menus, Long totalPrice) {
+    public DeliveryData(Long deliveryId, LocalDateTime orderedAt, String destination, String storeName, List<MenuData> menus, Long totalPrice) {
         this.deliveryId = deliveryId;
         this.orderedAt = orderedAt;
-        this.customerAddress = customerAddress;
+        this.destination = destination;
         this.storeName = storeName;
         this.menus = menus;
         this.totalPrice = totalPrice;

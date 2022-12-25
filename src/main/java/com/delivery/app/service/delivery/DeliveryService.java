@@ -48,7 +48,7 @@ public class DeliveryService {
             DeliveryData deliveryData = DeliveryData.builder()
                     .deliveryId(delivery.getId())
                     .orderedAt(delivery.getOrderedDate())
-                    .customerAddress(delivery.getCustomer().getAddress())
+                    .destination(delivery.getDestination())
                     .storeName(delivery.getStore().getName())
                     .menus(menuDataList)
                     .totalPrice(totalPrice)
@@ -56,5 +56,17 @@ public class DeliveryService {
             deliveryDataList.add(deliveryData);
         }
         return FindDeliveriesBetweenResult.builder().deliveries(deliveryDataList).build();
+    }
+
+    @Transactional(rollbackFor = Exception.class)
+    public UpdateDestinationResult updateDestination(Long deliveryId, String destination) throws DeliveryNotExistException, OnDeliveryException, DeliveryCompleteException {
+        Delivery delivery = deliveryRepository.findDeliveryByIdForUpdate(deliveryId)
+                .orElseThrow(() -> new DeliveryNotExistException("Delivery not exist"));
+        String oldDestination = delivery.updateDestination(destination);
+
+        return UpdateDestinationResult.builder()
+                .oldDestination(oldDestination)
+                .newDestination(destination)
+                .build();
     }
 }

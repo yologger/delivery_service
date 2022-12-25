@@ -32,11 +32,12 @@ CREATE TABLE `account`
 
 CREATE TABLE `delivery`
 (
-    `id`           BIGINT NOT NULL AUTO_INCREMENT,
+    `id`           BIGINT       NOT NULL AUTO_INCREMENT,
     `status`       INTEGER DEFAULT 0,
-    `customer_id`  BIGINT NOT NULL,
+    `customer_id`  BIGINT       NOT NULL,
     `ordered_date` TIMESTAMP,
-    `store_id`     BIGINT NOT NULL,
+    `store_id`     BIGINT       NOT NULL,
+    `destination`  VARCHAR(255) NOT NULL,
     PRIMARY KEY (`id`),
     FOREIGN KEY (`customer_id`) REFERENCES `account` (`id`),
     FOREIGN KEY (`store_id`) REFERENCES `store` (`id`)

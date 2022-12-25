@@ -2,6 +2,8 @@ package com.delivery.app.repository.delivery;
 
 import com.delivery.app.repository.account.Account;
 import com.delivery.app.repository.store.Store;
+import com.delivery.app.service.delivery.DeliveryCompleteException;
+import com.delivery.app.service.delivery.OnDeliveryException;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
@@ -39,8 +41,11 @@ public class Delivery {
     @ManyToOne
     private Store store;
 
+    @Column
+    private String destination;
+
     @Builder
-    public Delivery(Account customer) {
+    public Delivery(Account customer, String destination) {
         this.status = DeliveryStatus.PAYMENT_COMPLETE;
         setCustomer(customer);
     }
@@ -55,5 +60,13 @@ public class Delivery {
 
     public void updateStatus(DeliveryStatus status) {
         this.status = status;
+    }
+
+    public String updateDestination(String destination) throws OnDeliveryException, DeliveryCompleteException{
+        if (this.status == DeliveryStatus.ON_DELIVERY) throw new OnDeliveryException("On delivery");
+        if (this.status == DeliveryStatus.DELIVERY_COMPLETE) throw new DeliveryCompleteException("Delivery complete");
+        String oldDestination = this.destination;
+        this.destination = destination;
+        return oldDestination;
     }
 }

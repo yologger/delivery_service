@@ -11,6 +11,7 @@ import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.List;
+import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.assertj.core.api.Assertions.assertThatNoException;
@@ -48,5 +49,13 @@ class DeliveryRepositoryTest {
             List<Delivery> deliveries = deliveryRepository.findDeliveriesByCustomerAndOrderedDateBetween(customer, startDateTime, endDateTime);
             assertThat(deliveries.size()).isEqualTo(3);
         });
+    }
+
+    @Test
+    @DisplayName("id로 배달 내역 조회 후 락 걸기 테스트")
+    void findDeliveryByIdForUpdate() {
+        Long dummyId = 1L;
+        Optional<Delivery> _delivery = deliveryRepository.findDeliveryByIdForUpdate(dummyId);
+        assertThat(_delivery.isPresent()).isTrue();
     }
 }
