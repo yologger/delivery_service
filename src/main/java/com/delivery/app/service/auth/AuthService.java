@@ -27,14 +27,14 @@ public class AuthService {
     @Transactional
     public LoginResult login(LoginData data) throws AccountNotExistException, InvalidPasswordException {
 
-        Account account = accountRepository.findByAccountId(data.getAccountId())
+        Account account = accountRepository.findByEmail(data.getEmail())
                 .orElseThrow(() -> new AccountNotExistException("Account not found"));
 
         if (!passwordEncoder.matches(data.getPassword(), account.getPassword()))
             throw new InvalidPasswordException("Invalid password");
 
         // 인증 데이터 생성
-        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(data.getAccountId(), data.getPassword()));
+        Authentication authentication = authenticationManager.authenticate(new UsernamePasswordAuthenticationToken(data.getEmail(), data.getPassword()));
 
         // 인증정보 저장
         SecurityContextHolder.getContext().setAuthentication(authentication);

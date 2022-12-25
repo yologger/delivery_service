@@ -43,7 +43,7 @@ public class JwtFilter extends OncePerRequestFilter {
                     log.info("[JwtFilter] VALID ACCESS TOKEN, Authorization Info has been saved in 'SecurityContext' (URL: " + requestURI + ")");
                 } else {
                     // Authorization header not start with 'bearer'.
-                    log.info("[JwtFilter] Authorization header not start with 'bearer");
+                    log.info("[JwtFilter] Authorization header not start with 'Bearer'");
                     request.setAttribute("exception", AuthErrorCode.NO_BEARER.getCode());
                 }
             } else {

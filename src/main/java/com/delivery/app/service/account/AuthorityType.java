@@ -1,9 +1,8 @@
 package com.delivery.app.service.account;
 
 public enum AuthorityType {
-
-    ADMIN("ADMIN"),
-    USER("USER");
+    USER("USER"),
+    ADMIN("ADMIN");
 
     private String description;
 

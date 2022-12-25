@@ -20,10 +20,10 @@ class AuthServiceTest {
     @Transactional
     public void login_succeed() {
         // Given
-        String accountId =  "tester1";
+        String email =  "tester1@gmail.com";
         String password = "aaaAAA111!!!";
         LoginData data = LoginData.builder()
-                .accountId(accountId)
+                .email(email)
                 .password(password)
                 .build();
 
@@ -39,10 +39,10 @@ class AuthServiceTest {
     @Transactional
     public void login_fail_wrong_id() {
         // Given
-        String accountId = "tester0";
+        String email = "tester0@gmail.com";
         String password = "aaaAAA111!!!";
         LoginData data = LoginData.builder()
-                .accountId(accountId)
+                .email(email)
                 .password(password)
                 .build();
 
@@ -57,10 +57,10 @@ class AuthServiceTest {
     @Transactional
     public void login_fail_wrong_password() {
         // Given
-        String accountId = "tester1";
+        String email = "tester1@gmail.com";
         String password = "aaaAAA111!!!99";
         LoginData data = LoginData.builder()
-                .accountId(accountId)
+                .email(email)
                 .password(password)
                 .build();
 

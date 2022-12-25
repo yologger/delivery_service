@@ -5,9 +5,11 @@ import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
 import lombok.Builder;
 import lombok.Getter;
+import lombok.NoArgsConstructor;
 
 @Getter
 @ApiModel(value = "[Response] Access Token")
+@NoArgsConstructor
 public class LoginResult {
     @JsonProperty("access_token")
     @ApiModelProperty(value = "발급된 access token")

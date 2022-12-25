@@ -1,12 +1,15 @@
 package com.delivery.app.repository.account;
 
 
+import com.delivery.app.repository.delivery.Delivery;
 import com.delivery.app.service.account.AuthorityType;
 import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 @Getter
@@ -18,22 +21,29 @@ public class Account {
     private Long id;
 
     @Column
-    private String accountId;
+    private String email;
 
     @Column
     private String password;
 
     @Column
+    private String address;
+
+    @Column
     private String name;
 
-    @Enumerated(EnumType.STRING)
+    @Enumerated(EnumType.ORDINAL)
     private AuthorityType authority;
 
+    @OneToMany(mappedBy = "customer")
+    private List<Delivery> deliveries = new ArrayList<>();
+
     @Builder
-    public Account(String accountId, String password, String name) {
-        this.accountId = accountId;
+    public Account(String email, String password, String name, String address) {
+        this.email = email;
         this.password = password;
         this.name = name;
+        this.address = address;
         this.authority = AuthorityType.USER;
     }
 

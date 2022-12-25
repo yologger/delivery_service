@@ -16,10 +16,11 @@ public class AccountService {
 
     @Transactional(rollbackFor = Exception.class)
     public JoinResult join(JoinData data) throws AccountAlreadyExistException {
-        if (accountRepository.existsByAccountId(data.getAccountId())) throw new AccountAlreadyExistException("Account already exists");
+        if (accountRepository.existsByEmail(data.getEmail())) throw new AccountAlreadyExistException("Account already exists");
         Account newAccount = Account.builder()
-                .accountId(data.getAccountId())
+                .email(data.getEmail())
                 .name(data.getName())
+                .address(data.getAddress())
                 .password(passwordEncoder.encode(data.getPassword()))
                 .build();
         Account created = accountRepository.save(newAccount);

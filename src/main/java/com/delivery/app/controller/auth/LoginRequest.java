@@ -3,23 +3,24 @@ package com.delivery.app.controller.auth;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import io.swagger.annotations.ApiModel;
 import io.swagger.annotations.ApiModelProperty;
+import lombok.Builder;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
-import org.hibernate.validator.constraints.Length;
 
+import javax.validation.constraints.Email;
 import javax.validation.constraints.NotBlank;
 import javax.validation.constraints.Pattern;
 
 @Getter
 @NoArgsConstructor
-@ApiModel(value = "[Request] 로그인을 위한 계정 정보", description = "계정 id, 비밀번호")
+@ApiModel(value = "[Request] 로그인을 위한 계정 정보", description = "이메일, 비밀번호")
 public class LoginRequest {
 
-    @ApiModelProperty(value = "계정 아이디", notes = "5자리 이상, 20자리 미만 문자열", example = "yologger1013")
-    @NotBlank(message = "'account_id' must not empty.")
-    @JsonProperty(value = "account_id")
-    @Length(min=5, max=20, message = "'account_id' must be between 5 and 20 characters in length")
-    private String accountId;
+    @ApiModelProperty(value = "이메일", example = "yologger1013@gmail.com")
+    @NotBlank(message = "'email' must not be empty.")
+    @Email(message = "'email' must be in email format.")
+    @JsonProperty(value = "email")
+    private String email;
 
     @ApiModelProperty(value = "비밀번호", notes = "영어 대문자, 영어 소문자, 숫자, 특수 문자 중 3종류 이상이며 12자리 이상의 문자열", example = "!!!Qwert12345")
     @NotBlank(message = "'password' field empty.")
@@ -30,4 +31,10 @@ public class LoginRequest {
             message = "'password' must contains at least three of uppercase letter, lowercase letter, number, and special character. 'password' must be between 8 and 20 characters in length"
     )
     private String password;
+
+    @Builder
+    public LoginRequest(String email, String password) {
+        this.email = email;
+        this.password = password;
+    }
 }

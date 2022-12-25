@@ -47,17 +47,17 @@ class AuthControllerTest {
 
 
     @Nested
-    @DisplayName("id 유효성 테스트")
+    @DisplayName("email 유효성 테스트")
     class IdValidation {
 
         @Test
-        @DisplayName("유효한 id일 때 성공 테스트")
+        @DisplayName("유효한 email일 때 성공 테스트")
         @WithMockUser
-        void validateId_succeed() throws Exception {
+        void validateEmail_succeed() throws Exception {
 
             // Given
             Map<String, String> body = new HashMap<>();
-            body.put("account_id", "messi10");
+            body.put("email", "messi10@gmail.com");
             body.put("password", "111aaaAAA@@@");
 
             String dummyAccessToken = "dummy_access_token";
@@ -78,13 +78,13 @@ class AuthControllerTest {
         }
 
         @Test
-        @DisplayName("잘못된 id일 때 실패 테스트")
+        @DisplayName("유효하지 않은 email일 때 실패 테스트")
         @WithMockUser
-        void validateId_fail() throws Exception {
+        void validateEmail_fail() throws Exception {
 
             // Given
             Map<String, String> body = new HashMap<>();
-            body.put("account_id", "paul");
+            body.put("email", "paul");
             body.put("name", "Paul Pogba");
             body.put("password", "111aaaAAA@@@");
 

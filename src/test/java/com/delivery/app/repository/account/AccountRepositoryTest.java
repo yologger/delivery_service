@@ -18,14 +18,16 @@ class AccountRepositoryTest {
     @Autowired
     AccountRepository accountRepository;
 
-    String dummyAccountId = "dummyId";
+    String dummyEmail = "dummyId@gmail.com";
     String dummyPassword = "dummyPassword";
     String dummyName = "dummyName";
+
+    String dummyAddress ="dummyAddress";
     Account dummyAccount;
 
     @BeforeEach
     void setUp() {
-        Account account = Account.builder().accountId(dummyAccountId).name(dummyName).password(dummyPassword).build();
+        Account account = Account.builder().email(dummyEmail).name(dummyName).address(dummyAddress).password(dummyPassword).build();
         dummyAccount = accountRepository.save(account);
     }
 
@@ -43,7 +45,7 @@ class AccountRepositoryTest {
     @DisplayName("계정 존재 여부 테스트")
     void existsByAccountId() {
         // When
-        boolean exists = accountRepository.existsByAccountId(dummyAccountId);
+        boolean exists = accountRepository.existsByEmail(dummyEmail);
 
         // Then
         assertThat(exists).isTrue();
@@ -53,7 +55,7 @@ class AccountRepositoryTest {
     @DisplayName("account_id로 계정 조회 테스트")
     void findByAccountId() {
         // When
-        Optional<Account> _account = accountRepository.findByAccountId("tester1");
+        Optional<Account> _account = accountRepository.findByEmail("tester1@gmail.com");
 
         // Then
         assertThat(_account.isPresent()).isTrue();

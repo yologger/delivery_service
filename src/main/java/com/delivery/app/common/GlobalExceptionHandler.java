@@ -6,8 +6,10 @@ import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.HttpMediaTypeNotSupportedException;
 import org.springframework.web.HttpRequestMethodNotSupportedException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
+import org.springframework.web.bind.MissingServletRequestParameterException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.method.annotation.MethodArgumentTypeMismatchException;
 import org.springframework.web.servlet.NoHandlerFoundException;
 
 @RestControllerAdvice
@@ -61,5 +63,25 @@ public class GlobalExceptionHandler {
                 .status(GlobalErrorCode.NOT_FOUND.getStatus())
                 .build();
         return new ResponseEntity(response, HttpStatus.valueOf(GlobalErrorCode.NOT_FOUND.getStatus()));
+    }
+
+    @ExceptionHandler(value = MissingServletRequestParameterException.class)
+    public ResponseEntity<ErrorResponse> handleMissingServletRequestParameterException(MissingServletRequestParameterException e) {
+        final ErrorResponse response = ErrorResponse.builder()
+                .code(GlobalErrorCode.MISSING_QUERY_PARAMETER.getCode())
+                .message(e.getLocalizedMessage())
+                .status(GlobalErrorCode.MISSING_QUERY_PARAMETER.getStatus())
+                .build();
+        return new ResponseEntity(response, HttpStatus.valueOf(GlobalErrorCode.MISSING_QUERY_PARAMETER.getStatus()));
+    }
+
+    @ExceptionHandler(value = MethodArgumentTypeMismatchException.class)
+    public ResponseEntity<ErrorResponse> handleMethodArgumentTypeMismatchException(MethodArgumentTypeMismatchException e) {
+        final ErrorResponse response = ErrorResponse.builder()
+                .code(GlobalErrorCode.INVALID_QUERY_PARAMETER_TYPE.getCode())
+                .message(GlobalErrorCode.INVALID_QUERY_PARAMETER_TYPE.getMessage())
+                .status(GlobalErrorCode.INVALID_QUERY_PARAMETER_TYPE.getStatus())
+                .build();
+        return new ResponseEntity(response, HttpStatus.valueOf(GlobalErrorCode.INVALID_QUERY_PARAMETER_TYPE.getStatus()));
     }
 }

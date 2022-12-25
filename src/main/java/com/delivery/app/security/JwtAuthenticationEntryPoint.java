@@ -1,6 +1,10 @@
 package com.delivery.app.security;
 
+import com.delivery.app.common.ErrorResponse;
+import com.fasterxml.jackson.databind.ObjectMapper;
+import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.AuthenticationEntryPoint;
 import org.springframework.stereotype.Component;
@@ -15,10 +19,12 @@ import java.util.Map;
 @Slf4j
 public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
 
+    private final ObjectMapper objectMapper = new ObjectMapper();
+
     @Override
     public void commence(HttpServletRequest request, HttpServletResponse response, AuthenticationException authException) throws IOException {
 
-        String exception = (String)request.getAttribute("exception");
+        String exception = (String) request.getAttribute("exception");
         AuthErrorCode errorCode = null;
 
         if (exception == null) {
@@ -59,11 +65,14 @@ public class JwtAuthenticationEntryPoint implements AuthenticationEntryPoint {
     private void sendErrorResponse(HttpServletResponse response, AuthErrorCode errorCode) throws IOException {
         response.setStatus(errorCode.getStatus());
         response.setContentType("application/json;charset=utf-8");
-        Map body = new HashMap<>();
-        body.put("status", errorCode.getStatus());
-        body.put("code", errorCode.getCode());
-        body.put("message", errorCode.getMessage());
-        response.getWriter().print(body);
+
+        ErrorResponse errorResponse = ErrorResponse.builder()
+                .status(errorCode.getStatus())
+                .code(errorCode.getCode())
+                .message(errorCode.getMessage())
+                .build();
+
+        response.getWriter().print(objectMapper.writeValueAsString(errorResponse));
         return;
     }
 }

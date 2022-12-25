@@ -48,21 +48,21 @@ public class SecurityConfig {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
         return http
-            .httpBasic().disable()
-            .csrf().disable()
-            .cors().disable()
-            .formLogin().disable()
-            .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
-            .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
+                .httpBasic().disable()
+                .csrf().disable()
+                .cors().disable()
+                .formLogin().disable()
+                .sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
+                .addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class)
                 .exceptionHandling()
                 .authenticationEntryPoint(jwtAuthenticationEntryPoint)
                 .accessDeniedHandler(jwtAccessDeniedHandler).and()
-            .authorizeHttpRequests(authorize -> authorize
-                .antMatchers(HttpMethod.POST, "/account").permitAll()
-                .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
-                .anyRequest().authenticated()
-            )
-            .build();
+                .authorizeHttpRequests(authorize -> authorize
+                        .antMatchers(HttpMethod.POST, "/account").permitAll()
+                        .antMatchers(HttpMethod.POST, "/auth/login").permitAll()
+                        .anyRequest().authenticated()
+                )
+                .build();
     }
 
     @Bean

@@ -43,45 +43,47 @@ class AccountControllerTest {
     @MockBean
     TokenProvider tokenProvider;
 
-    @Test
-    @DisplayName("중복된 id 테스트")
-    @WithMockUser
-    void duplicate_account_id() throws Exception {
-
-        // Given
-        Map<String, String> body = new HashMap<>();
-        body.put("account_id", "messi10");
-        body.put("name", "Leonel Messi");
-        body.put("password", "111aaaAAA@@@");
-
-        when(accountService.join(any()))
-                .thenThrow(new AccountAlreadyExistException("Account already exists"));
-
-        // When
-        mvc.perform(MockMvcRequestBuilders.post("/account")
-                        .with(csrf())
-                        .contentType(MediaType.APPLICATION_JSON)
-                        .content(objectMapper.writeValueAsString(body)
-                        ))
-                // Then
-                .andExpect(jsonPath("$.code", equalTo("ACCOUNT_JOIN_001")))
-                .andExpect(status().isBadRequest())
-                .andDo(print());
-    }
-
     @Nested
-    @DisplayName("id 유효성 테스트")
+    @DisplayName("email 유효성 테스트")
     class IdValidation {
 
         @Test
-        @DisplayName("유효한 id일 때 성공 테스트")
+        @DisplayName("중복된 email 테스트")
         @WithMockUser
-        void validateId_succeed() throws Exception {
+        void duplicate_email() throws Exception {
 
             // Given
             Map<String, String> body = new HashMap<>();
-            body.put("account_id", "messi10");
+            body.put("email", "messi10@gmail.com");
             body.put("name", "Leonel Messi");
+            body.put("address", "dummy address");
+            body.put("password", "111aaaAAA@@@");
+
+            when(accountService.join(any()))
+                    .thenThrow(new AccountAlreadyExistException("Account already exists"));
+
+            // When
+            mvc.perform(MockMvcRequestBuilders.post("/account")
+                            .with(csrf())
+                            .contentType(MediaType.APPLICATION_JSON)
+                            .content(objectMapper.writeValueAsString(body)
+                            ))
+                    // Then
+                    .andExpect(jsonPath("$.code", equalTo("ACCOUNT_JOIN_001")))
+                    .andExpect(status().isBadRequest())
+                    .andDo(print());
+        }
+
+        @Test
+        @DisplayName("유효한 email일 때 성공 테스트")
+        @WithMockUser
+        void validateEmail_succeed() throws Exception {
+
+            // Given
+            Map<String, String> body = new HashMap<>();
+            body.put("email", "messi10@gmail.com");
+            body.put("name", "Leonel Messi");
+            body.put("address", "dummy address");
             body.put("password", "111aaaAAA@@@");
 
             when(accountService.join(any()))
@@ -100,14 +102,15 @@ class AccountControllerTest {
         }
 
         @Test
-        @DisplayName("잘못된 id일 때 실패 테스트")
+        @DisplayName("유효하지 않은 email일 때 실패 테스트")
         @WithMockUser
-        void validateId_fail() throws Exception {
+        void validateEmail_fail() throws Exception {
 
             // Given
             Map<String, String> body = new HashMap<>();
-            body.put("account_id", "paul");
+            body.put("email", "paul");
             body.put("name", "Paul Pogba");
+            body.put("address", "dummy address");
             body.put("password", "111aaaAAA@@@");
 
             // When
@@ -134,8 +137,9 @@ class AccountControllerTest {
 
             // Given
             Map<String, String> body = new HashMap<>();
-            body.put("account_id", "messi10");
+            body.put("email", "messi10@gmail.com");
             body.put("name", "Leonel Messi");
+            body.put("address", "dummy address");
             body.put("password", "111aaaAAA@@@");
 
             when(accountService.join(any()))
@@ -160,8 +164,9 @@ class AccountControllerTest {
 
             // Given
             Map<String, String> body = new HashMap<>();
-            body.put("account_id", "messi10");
+            body.put("email", "messi10@gmail.com");
             body.put("name", "Leonel Messi");
+            body.put("address", "dummy address");
             body.put("password", "aaaaaaAAA@@@");
 
             when(accountService.join(any()))
@@ -186,8 +191,9 @@ class AccountControllerTest {
 
             // Given
             Map<String, String> body = new HashMap<>();
-            body.put("account_id", "messi10");
+            body.put("email", "messi10@gmail.com");
             body.put("name", "Leonel Messi");
+            body.put("address", "dummy address");
             body.put("password", "aaaa@@@@");
 
             // When

@@ -1,5 +1,6 @@
 package com.delivery.app.repository.store;
 
+import com.delivery.app.repository.delivery.Delivery;
 import com.delivery.app.repository.menu.Menu;
 import lombok.Builder;
 import lombok.Getter;
@@ -26,6 +27,9 @@ public class Store {
 
     @OneToMany(mappedBy = "store")
     private List<Menu> menus = new ArrayList<>();
+
+    @OneToMany(mappedBy = "store")
+    private List<Delivery> deliveries = new ArrayList<>();
 
     @Builder
     public Store(String name, String address) {

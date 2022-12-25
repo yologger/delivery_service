@@ -18,11 +18,11 @@ public class AccountDetailsService implements UserDetailsService {
 
     @Override
     public UserDetails loadUserByUsername(String username) throws UsernameNotFoundException {
-        Account account = accountRepository.findByAccountId(username)
+        Account account = accountRepository.findByEmail(username)
                 .orElseThrow(() -> new UsernameNotFoundException("Account not found"));
 
         return User.builder()
-                .username(account.getAccountId())
+                .username(account.getEmail())
                 .password(account.getPassword())
                 .authorities(new SimpleGrantedAuthority(account.getAuthority().getDescription()))
                 .build();

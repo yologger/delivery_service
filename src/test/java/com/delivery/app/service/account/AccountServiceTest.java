@@ -9,9 +9,7 @@ import org.springframework.transaction.annotation.Transactional;
 
 import javax.persistence.EntityManager;
 
-import static org.assertj.core.api.Assertions.assertThat;
-import static org.assertj.core.api.Assertions.assertThatThrownBy;
-import static org.junit.jupiter.api.Assertions.fail;
+import static org.assertj.core.api.Assertions.*;
 
 @SpringBootTest
 @DisplayName("AccountService 테스트")
@@ -28,15 +26,17 @@ class AccountServiceTest {
     @Transactional
     public void join_succeed() {
         // Given
-        String dummyAccountId = "dummy1234";
+        String dummyEmail = "dummy1234@gmail.com";
         String dummyName = "dummy";
+        String dummyAddress ="address";
         String dummyPassword = "12341234";
 
-        try {
+        assertThatNoException().isThrownBy(() -> {
             // When
             JoinData data = JoinData.builder()
-                    .accountId(dummyAccountId)
+                    .email(dummyEmail)
                     .name(dummyName)
+                    .address(dummyAddress)
                     .password(dummyPassword)
                     .build();
 
@@ -44,9 +44,7 @@ class AccountServiceTest {
 
             // Then
             assertThat(result.getId()).isPositive();
-        } catch (AccountAlreadyExistException e) {
-            fail();
-        }
+        });
     }
 
     @Test
@@ -55,11 +53,13 @@ class AccountServiceTest {
     public void join_fail_accountAlreadyExists() {
 
         // Given
-        String dummyAccountId = "dummy1234";
+        String dummyEmail = "dummy1234@gmail.com";
         String dummyName = "dummy";
+        String dummyAddress = "dummy address";
         String dummyPassword = "12341234";
         Account dummyAccount = Account.builder()
-                .accountId(dummyAccountId)
+                .email(dummyEmail)
+                .address(dummyAddress)
                 .password(dummyPassword)
                 .name(dummyName)
                 .build();
@@ -69,7 +69,8 @@ class AccountServiceTest {
         // When & Then
         assertThatThrownBy(() -> {
             JoinData data = JoinData.builder()
-                    .accountId(dummyAccountId)
+                    .address(dummyAddress)
+                    .email(dummyEmail)
                     .name(dummyName)
                     .password(dummyPassword)
                     .build();

@@ -1,6 +1,5 @@
 package com.delivery.app.repository.store;
 
-import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -15,7 +14,6 @@ import static org.assertj.core.api.Assertions.assertThat;
 @DataJpaTest
 @DisplayName("StoreRepository 테스트")
 class StoreRepositoryTest {
-
     @Autowired
     StoreRepository storeRepository;
 
@@ -27,11 +25,6 @@ class StoreRepositoryTest {
     void setUp() {
         Store store = Store.builder().name(dummyStoreName).address(dummyStoreAddress).build();
         dummyStore = storeRepository.save(store);
-    }
-
-    @AfterEach
-    void tearDown() {
-        storeRepository.deleteAll();
     }
 
     @Test

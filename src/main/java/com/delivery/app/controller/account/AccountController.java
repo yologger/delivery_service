@@ -25,19 +25,20 @@ import javax.validation.Valid;
 public class AccountController {
     final private AccountService accountService;
 
-    @ApiOperation(value = "회원 가입", notes = "계정 id, 이름, 비밀번호로 회원 가입하기")
+    @ApiOperation(value = "회원 가입", notes = "이메일, 이름, 비밀번호로 회원 가입하기")
     @ApiResponses({
             @ApiResponse(code = 201, message = "회원 가입 성공"),
-            @ApiResponse(code = 400, message = "중복된 계정 id"),
-            @ApiResponse(code = 400, message = "잘못된 account_id"),
+            @ApiResponse(code = 400, message = "중복된 계정"),
+            @ApiResponse(code = 400, message = "잘못된 email"),
             @ApiResponse(code = 400, message = "잘못된 name"),
             @ApiResponse(code = 400, message = "잘못된 password")
     })
     @PostMapping(value = "/account", consumes = "application/json", produces = "application/json")
     public ResponseEntity<JoinResult> join(@Valid @RequestBody JoinRequest request) throws AccountAlreadyExistException {
         JoinData joinData = JoinData.builder()
-                .accountId(request.getAccountId())
+                .email(request.getEmail())
                 .name(request.getName())
+                .address(request.getAddress())
                 .password(request.getPassword())
                 .build();
 
